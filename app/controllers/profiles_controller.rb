@@ -1,18 +1,17 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user
-  before_action :owned_profile, only: [:edit, :update]
+  before_action :owned_profile, only: %i[edit update]
 
   def show
-    if @user.posts
-      @posts = @user.posts.order('created_at DESC')
-    else
-      @posts = []
-    end
+    @posts = if @user.posts
+               @user.posts.order('created_at DESC')
+             else
+               []
+             end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @user.update(profile_params)
@@ -41,6 +40,7 @@ class ProfilesController < ApplicationController
   def set_user
     @user = User.find_by(user_name: params[:user_name])
   end
+
   def owned_profile
     @user = User.find_by(user_name: params[:user_name])
     unless current_user == @user

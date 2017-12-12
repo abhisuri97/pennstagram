@@ -1,14 +1,13 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :like]
-  before_action :owned_post, only: [:edit, :update, :destroy]
+  before_action :set_post, only: %i[show edit update destroy like]
+  before_action :owned_post, only: %i[edit update destroy]
   before_action :authenticate_user!
 
   def index
     @posts = Post.all.order('created_at DESC').page params[:page]
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @post = current_user.posts.build
@@ -27,7 +26,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
 
     if @post.save
-      flash[:success] = "Your post has been created!"
+      flash[:success] = 'Your post has been created!'
       redirect_to posts_path
     else
       flash[:alert] = "Your new post couldn't be created!  Please check the form."
@@ -35,15 +34,14 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @post.update(post_params)
-      flash[:success] = "Post updated."
+      flash[:success] = 'Post updated.'
       redirect_to posts_path
     else
-      flash.now[:alert] = "Update failed.  Please check the form."
+      flash.now[:alert] = 'Update failed.  Please check the form.'
       render :edit
     end
   end
