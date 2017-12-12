@@ -14,7 +14,6 @@ gem 'puma', '~> 3.7'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 gem 'haml'
-gem 'aws-sdk'
 gem "paperclip", "~> 5.0.0"
 gem 'simple_form'
 gem 'bootstrap-sass', '~> 3.3.7'
